@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aqqxa.sm.basic.repository.BasicRepository">
+
+    <resultMap id="BASIC_RESULT_MAP" type="com.aqqxa.sm.basic.entity.BasicEntity">
+        <id column="id" />
+        <result column="lastModifiedDate" />
+        <result column="createdDate" />
+    </resultMap>
+
+    <resultMap id="VERSIONED_RESULT_MAP" type="com.aqqxa.sm.basic.entity.VersionedEntity" extends="BASIC_RESULT_MAP">
+        <result column="version" />
+    </resultMap>
+
+    <sql id="BASIC_COLUMNS">
+        id,
+        lastModifiedDate,
+        createdDate
+    </sql>
+
+    <sql id="VERSIONED_COLUMNS">
+        <include refid="BASIC_COLUMNS" />,
+        version
+    </sql>
+
+</mapper>

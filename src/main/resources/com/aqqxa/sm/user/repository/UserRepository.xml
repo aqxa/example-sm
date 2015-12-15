@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.aqqxa.sm.user.repository.UserRepository">
+
+    <resultMap id="RESULT_MAP"
+               type="com.aqqxa.sm.user.entity.User"
+               extends="com.aqqxa.sm.basic.repository.BasicRepository.VERSIONED_RESULT_MAP">
+        <result column="username"/>
+        <result column="password"/>
+    </resultMap>
+
+    <sql id="SQL_COLUMNS">
+        <include refid="com.aqqxa.sm.basic.repository.BasicRepository.VERSIONED_COLUMNS"/>,
+        username,
+        password
+    </sql>
+
+    <sql id="SQL_WHERE">
+        <include refid="com.aqqxa.sm.basic.repository.BasicRepository.BASIC_WHERE"/>,
+        <if test="username != null">
+            AND username = #{username}
+        </if>
+        <if test="password != null">
+            AND password = #{password}
+        </if>
+    </sql>
+
+    <select id="queryOne" resultMap="RESULT_MAP">
+        SELECT
+          <include refid="SQL_COLUMNS"/>
+        FROM
+          `User` u
+        WHERE
+          <include refid="SQL_WHERE"/>
+    </select>
+
+</mapper>
